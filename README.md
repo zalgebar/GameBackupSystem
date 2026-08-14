@@ -12,7 +12,32 @@ config, then back up or restore them in a click.
 
 ## Building
 
-Open `GameBackupSystem.sln` in Visual Studio (targets .NET Framework, WinForms) and build.
+Windows only (it's a WinForms app). Targets **.NET Framework 4.6.1**; there are **no NuGet
+packages** to restore.
+
+**Prerequisites** (once) — MSBuild plus the .NET Framework 4.6.1 targeting pack, from the
+Visual Studio **Build Tools**. In an **elevated** PowerShell:
+
+```powershell
+winget install --id Microsoft.VisualStudio.2022.BuildTools -e --override "--quiet --wait --norestart --includeRecommended --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools --add Microsoft.Net.Component.4.6.1.TargetingPack"
+```
+
+An editor is optional (e.g. `winget install --id Microsoft.VisualStudioCode -e`); a full
+Visual Studio install works too.
+
+**Build** — from the repo root:
+
+```powershell
+./build.ps1
+```
+
+`build.ps1` locates MSBuild automatically (via `vswhere`), so it runs from any PowerShell —
+no "Developer PowerShell" required. It produces
+`GameBackupSystem\bin\Release\GameBackupSystem.exe`. Options: `-Configuration Debug`, and
+`-Run` to launch the app after building. If PowerShell blocks the script, run
+`powershell -ExecutionPolicy Bypass -File .\build.ps1`.
+
+Prefer an IDE? Just open `GameBackupSystem.sln` in Visual Studio and build there.
 
 ## Status
 
